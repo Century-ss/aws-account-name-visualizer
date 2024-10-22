@@ -1,5 +1,5 @@
-import 'webextension-polyfill'
-import 'construct-style-sheets-polyfill'
+// import 'webextension-polyfill'
+// import 'construct-style-sheets-polyfill'
 import React from 'react'
 import { createRoot } from 'react-dom/client'
 
