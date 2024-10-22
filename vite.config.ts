@@ -18,11 +18,13 @@ export default defineConfig({
   publicDir: resolve(__dirname, 'public'),
   build: {
     outDir: resolve(__dirname, 'dist'),
+    emptyOutDir: true,
     rollupOptions: {
       input: {
         // see web_accessible_resources in the manifest config
         welcome: join(__dirname, 'src/welcome/welcome.html'),
       },
+      external: ['webextension-polyfill'],
       output: {
         chunkFileNames: 'assets/chunk-[hash].js',
       },
