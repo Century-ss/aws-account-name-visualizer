@@ -1,4 +1,4 @@
-const Popup = () => {
+export const Popup = () => {
   document.body.className = 'w-[30rem] h-[15rem]'
 
   return (
@@ -8,5 +8,3 @@ const Popup = () => {
     </>
   )
 }
-
-export default Popup
