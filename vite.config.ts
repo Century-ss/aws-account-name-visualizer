@@ -1,3 +1,5 @@
+/// <reference types="vitest" />
+
 import { crx } from '@crxjs/vite-plugin'
 import react from '@vitejs/plugin-react'
 import { join, resolve } from 'node:path'
@@ -12,6 +14,10 @@ export default defineConfig({
     hmr: {
       port: 5173,
     },
+  },
+  test: {
+    globals: true,
+    environment: 'jsdom',
   },
   // prevent src/ prefix on extension urls
   root: resolve(__dirname, 'src'),
