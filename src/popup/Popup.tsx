@@ -1,7 +1,19 @@
-import { Box, Button, CircularProgress, TextField, Typography } from '@mui/material'
-import { DataGrid, type GridColDef } from '@mui/x-data-grid'
+import {
+  Box,
+  Button,
+  Checkbox,
+  CircularProgress,
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  TextField,
+  Typography,
+} from '@mui/material'
 import { useEffect, useRef, useState } from 'react'
-import { a } from 'vitest/dist/chunks/suite.BMWOKiTe'
 
 type Row = {
   id: number
@@ -9,9 +21,14 @@ type Row = {
   accountName: string
 }
 
-const columns: GridColDef[] = [
-  { field: 'accountId', headerName: 'Account ID', flex: 1 },
-  { field: 'accountName', headerName: 'Account Name', flex: 1 },
+type Column = {
+  field: keyof Row
+  headerName: string
+}
+
+const columns: Column[] = [
+  { field: 'accountName', headerName: 'Account Name' },
+  { field: 'accountId', headerName: 'Account ID' },
 ]
 
 const CustomNoRowsOverlay = () => (
@@ -36,10 +53,13 @@ export const convertRowsToAccountTextField = (rows: Row[]) => {
   return accountTextList.join('\n\n')
 }
 
+const ELEMENT_WIDTH = 400
+const ELEMENT_HEIGHT = 400
+
 export const Popup = () => {
   useEffect(() => {
-    document.body.style.width = '300px'
-    document.body.style.height = '400px'
+    document.body.style.width = `${ELEMENT_WIDTH}px`
+    document.body.style.height = `${ELEMENT_HEIGHT}px`
   }, [])
 
   const registerAccountText = useRef<HTMLTextAreaElement>(null)
@@ -94,18 +114,19 @@ export const Popup = () => {
         <TextField
           id="message"
           multiline
-          rows={10}
+          rows={8}
           variant="outlined"
           inputRef={registerAccountText}
           defaultValue={convertRowsToAccountTextField(rows)}
-          // sx={{
-          //   '& .MuiInputBase-input': {
-          //     resize: 'both', // マウスで大きさを変えられるようにする
-          //   },
-          // }}
+          sx={{
+            '& .MuiInputBase-input': {
+              resize: 'both', // マウスで大きさを変えられるようにする
+            },
+          }}
         />
       </Box>
-      <Box sx={{ display: 'flex', justifyContent: 'flex-start', mt: 1, ml: 6 }}>
+
+      <Box sx={{ display: 'flex', justifyContent: 'flex-start', mt: 1, ml: 12 }}>
         <Button
           id="saveButton"
           variant="contained"
@@ -118,15 +139,37 @@ export const Popup = () => {
         {/* biome-ignore lint/style/useSelfClosingElements: <explanation> */}
         <Typography id="saveStatus" sx={{ mt: 1, ml: 2 }}></Typography>
       </Box>
-      <Box sx={{ height: 400, mt: 1 }}>
-        <DataGrid
-          rows={rows}
-          columns={columns}
-          hideFooter
-          slots={{
-            noRowsOverlay: CustomNoRowsOverlay,
-          }}
-        />
+
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+          height: 260,
+          mt: 1,
+        }}
+      >
+        <TableContainer component={Paper}>
+          <Table>
+            <TableHead>
+              <TableRow>
+                {columns.map((column) => (
+                  <TableCell key={column.field}>{column.headerName}</TableCell>
+                ))}
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {rows.map((row) => (
+                <TableRow key={row.id}>
+                  {columns.map((column) => (
+                    <TableCell key={column.field}>{String(row[column.field])}</TableCell>
+                  ))}
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
       </Box>
     </>
   )
