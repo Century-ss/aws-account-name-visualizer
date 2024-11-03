@@ -6,9 +6,33 @@ on:
       - main
 
 jobs:
+  file-changes:
+    name: File Changes check
+    runs-on: ubuntu-latest
+    outputs:
+      src: ${{ steps.filter.outputs.src }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - uses: dorny/paths-filter@v3
+        id: filter
+        with:
+          filters: |
+            src:
+              - src/**
+              - package.json
+              - package-lock.json
+              - biome.json
+              - tsconfig.json
+              - tsconfig.node.json
+              - vite.config.ts
+              - .github/workflows/test-and-lint.yml
+
   test-and-lint:
     runs-on: ubuntu-latest
-
+    needs: file-changes
+    if: ${{ needs.file-changes.outputs.src == 'true' }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
