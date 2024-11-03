@@ -8,15 +8,9 @@
     "build": "run-s clean && tsc && vite build",
     "clean": "run-p clean:*",
     "clean:dist": "rimraf dist",
-    "format": "run-p format:*",
-    "format:eslint": "run-s \" lint:eslint --fix \"",
-    "format:prettier": "run-s \" lint:prettier --write \"",
-    "lint": "run-p lint:*",
-    "lint:eslint": "eslint . --ext .js,.ts,.tsx --max-warnings 0 --ignore-path .gitignore",
-    "lint:prettier": "prettier \"**/*.(md|json|yml)\" --ignore-path .gitignore --check",
-    "lint:type": "tsc --noEmit",
-    "test": "vitest",
-    "ci:test": "run-s \" test --ci --reporters=\"default\" --reporters=\"github-actions\" \""
+    "format": "biome format --write ./src",
+    "check": "biome check ./src",
+    "test": "vitest"
   },
   "dependencies": {
     "@crxjs/vite-plugin": "^2.0.0-beta.26",
