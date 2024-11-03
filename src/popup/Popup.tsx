@@ -1,18 +1,5 @@
-import {
-  Box,
-  Button,
-  Checkbox,
-  CircularProgress,
-  Paper,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  TextField,
-  Typography,
-} from '@mui/material'
+import { Box, Button, CircularProgress, TextField, Typography } from '@mui/material'
+import { DataGrid, type GridColDef } from '@mui/x-data-grid'
 import { useEffect, useRef, useState } from 'react'
 
 type Row = {
@@ -21,14 +8,9 @@ type Row = {
   accountName: string
 }
 
-type Column = {
-  field: keyof Row
-  headerName: string
-}
-
-const columns: Column[] = [
-  { field: 'accountName', headerName: 'Account Name' },
-  { field: 'accountId', headerName: 'Account ID' },
+const columns: GridColDef[] = [
+  { field: 'accountName', headerName: 'Account Name', flex: 1 },
+  { field: 'accountId', headerName: 'Account ID', flex: 1 },
 ]
 
 const CustomNoRowsOverlay = () => (
@@ -53,13 +35,9 @@ export const convertRowsToAccountTextField = (rows: Row[]) => {
   return accountTextList.join('\n\n')
 }
 
-const ELEMENT_WIDTH = 400
-const ELEMENT_HEIGHT = 400
-
 export const Popup = () => {
   useEffect(() => {
-    document.body.style.width = `${ELEMENT_WIDTH}px`
-    document.body.style.height = `${ELEMENT_HEIGHT}px`
+    document.body.style.width = '300px'
   }, [])
 
   const registerAccountText = useRef<HTMLTextAreaElement>(null)
@@ -126,7 +104,7 @@ export const Popup = () => {
         />
       </Box>
 
-      <Box sx={{ display: 'flex', justifyContent: 'flex-start', mt: 1, ml: 12 }}>
+      <Box sx={{ display: 'flex', justifyContent: 'flex-start', mt: 1, ml: 6 }}>
         <Button
           id="saveButton"
           variant="contained"
@@ -140,17 +118,16 @@ export const Popup = () => {
         <Typography id="saveStatus" sx={{ mt: 1, ml: 2 }}></Typography>
       </Box>
 
-      <Box
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          alignItems: 'center',
-          height: 260,
-          mt: 1,
-        }}
-      >
-        <TableContainer component={Paper}>
+      <Box sx={{ height: 250, mt: 1 }}>
+        <DataGrid
+          rows={rows}
+          columns={columns}
+          hideFooter
+          slots={{
+            noRowsOverlay: CustomNoRowsOverlay,
+          }}
+        />
+        {/* <TableContainer component={Paper}>
           <Table>
             <TableHead>
               <TableRow>
@@ -169,7 +146,7 @@ export const Popup = () => {
               ))}
             </TableBody>
           </Table>
-        </TableContainer>
+        </TableContainer> */}
       </Box>
     </>
   )
