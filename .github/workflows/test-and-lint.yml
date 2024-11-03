@@ -5,6 +5,10 @@ on:
     branches:
       - main
 
+concurrency:
+  group: ${{ github.workflow }}--
+  cancel-in-progress: true
+
 jobs:
   file-changes:
     name: File Changes check
