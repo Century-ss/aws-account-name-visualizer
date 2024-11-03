@@ -7,28 +7,30 @@ import { version } from '../package.json'
 
 const manifest = defineManifest(async (env) => ({
   manifest_version: 3,
-  name: `${env.mode === 'development' ? '[Dev] ' : ''}Browser Extension TypeScript & React Starter`,
-  description: 'Browser Extension, TypeScript, React',
+  name: `${env.mode === 'development' ? '[Dev] ' : ''}AWS account name visualizer`,
+  description:
+    'Visualizing current AWS account name for easier navigation in Control Tower environments.',
   version,
-  background: {
-    service_worker: 'background/index.ts',
-  },
+  // background: {
+  //   service_worker: 'background/index.ts',
+  // },
   content_scripts: [
     {
-      matches: ['http://*/*', 'https://*/*', 'file:///*'],
+      // matches: ['http://*/*', 'https://*/*', 'file:///*'],
+      matches: ['https://*.console.aws.amazon.com/*'],
       js: ['content/index.tsx'],
     },
   ],
   host_permissions: ['<all_urls>'],
-  web_accessible_resources: [
-    {
-      resources: [
-        // this file is web accessible; it supports HMR b/c it's declared in `rollupOptions.input`
-        'welcome/welcome.html',
-      ],
-      matches: ['<all_urls>'],
-    },
-  ],
+  // web_accessible_resources: [
+  //   {
+  //     resources: [
+  //       // this file is web accessible; it supports HMR b/c it's declared in `rollupOptions.input`
+  //       'welcome/welcome.html',
+  //     ],
+  //     matches: ['<all_urls>'],
+  //   },
+  // ],
   action: {
     default_popup: 'popup/popup.html',
     default_icon: {
