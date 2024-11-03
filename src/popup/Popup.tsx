@@ -67,9 +67,9 @@ export const Popup = () => {
             saveStatusElement.textContent = 'Save Completed!'
             setTimeout(() => {
               saveStatusElement.textContent = ''
-            }, 2000)
+            }, 1000)
           }
-        }, 2000)
+        }, 1000)
 
         const accountPairRows = convertAccountTextListToRows(accountTextList)
         setRows(accountPairRows)
@@ -88,7 +88,6 @@ export const Popup = () => {
         }}
       >
         <h3>Register AWS Account ID</h3>
-
         <TextField
           id="message"
           multiline
@@ -127,7 +126,8 @@ export const Popup = () => {
             noRowsOverlay: CustomNoRowsOverlay,
           }}
         />
-        {/* <TableContainer component={Paper}>
+      </Box>
+      {/* <TableContainer component={Paper}>
           <Table>
             <TableHead>
               <TableRow>
@@ -147,7 +147,6 @@ export const Popup = () => {
             </TableBody>
           </Table>
         </TableContainer> */}
-      </Box>
     </>
   )
 }
