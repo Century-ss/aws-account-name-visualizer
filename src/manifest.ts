@@ -21,7 +21,7 @@ const manifest = defineManifest(async (env) => ({
       js: ['content/index.tsx'],
     },
   ],
-  host_permissions: ['<all_urls>'],
+  // host_permissions: ['<all_urls>'],
   // web_accessible_resources: [
   //   {
   //     resources: [
