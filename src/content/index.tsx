@@ -19,24 +19,23 @@ const sleep = (msec: number) => new Promise((resolve) => setTimeout(resolve, mse
 const displayAccountName = async () => {
   await sleep(3000)
 
-  const buttonElement = document.getElementById('nav-usernameMenu')
+  const menuButtonElement = document.getElementById('nav-usernameMenu')
 
-  if (!buttonElement) {
+  if (!menuButtonElement) {
     throw new Error('Not found user menu button.')
   }
 
-  // ボタンをクリック
-  buttonElement.click()
+  menuButtonElement.click()
 
   const spanElements = document.querySelectorAll('span')
 
-  // "アカウント ID: " を含む span 要素を探す
-  const accountLabelElement = Array.from(spanElements).find((span) =>
-    span.textContent?.includes('アカウント ID: '),
+  const accountLabelElement = Array.from(spanElements).find(
+    (span) =>
+      span.textContent?.includes('アカウント ID: ') || span.textContent?.includes('Account ID: '),
   )
 
   if (!accountLabelElement) {
-    throw new Error('アカウント ID ラベルが見つかりませんでした。')
+    throw new Error('Not found account ID label element.')
   }
 
   const accountIdElement = accountLabelElement.nextElementSibling
@@ -46,16 +45,15 @@ const displayAccountName = async () => {
 
   const accountId = accountIdElement.textContent.replace(/-/g, '')
 
-  // buttonElementの中のspan要素を取得
-  const displayElement = Array.from(buttonElement.getElementsByTagName('span')).find(
+  const roleAndUserNameElement = Array.from(menuButtonElement.getElementsByTagName('span')).find(
     (span) =>
       span.textContent?.includes('AWSAdministratorAccess/') ||
       span.textContent?.includes('AWSPowerUserAccess/') ||
       span.textContent?.includes('ReadOnlyAccess/'),
   )
 
-  if (!displayElement) {
-    throw new Error('displayElementが見つかりませんでした。')
+  if (!roleAndUserNameElement) {
+    throw new Error('Not found role and user name element.')
   }
 
   chrome.storage.sync.get('accountTextList', (result) => {
@@ -64,10 +62,21 @@ const displayAccountName = async () => {
     if (!accountName) {
       throw new Error('Not found from registered account names.')
     }
-    displayElement.textContent = accountName
+    const DisplayAccountElement = document.createElement('span')
+    DisplayAccountElement.textContent = accountName
+    DisplayAccountElement.style.cssText =
+      'color: white; font-weight: bold; display: flex; align-items: center; justify-content: center;'
+    menuButtonElement.parentNode?.insertBefore(DisplayAccountElement, menuButtonElement)
+
+    // For taking sample images for description
+    // DisplayAccountElement.textContent = 'Account Name'
+    // DisplayAccountElement.style.cssText =
+    //   'color: white; font-weight: bold; display: flex; align-items: center; justify-content: center;'
+    // menuButtonElement.parentNode?.insertBefore(DisplayAccountElement, menuButtonElement)
+    // roleAndUserNameElement.textContent = 'AWSAdministratorAccess/user-name'
   })
 
-  buttonElement.click()
+  menuButtonElement.click()
 }
 
 main()
