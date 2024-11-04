@@ -89,12 +89,12 @@ export const Popup = () => {
       >
         <h3>Register AWS Account ID</h3>
         <TextField
-          id="message"
           multiline
           rows={8}
           variant="outlined"
           inputRef={registerAccountText}
           defaultValue={convertRowsToAccountTextField(rows)}
+          placeholder="[account-name-1]&#10;account-id-1&#10;&#10;[account-name-2]&#10;account-id-2&#10;&#10;..."
           sx={{
             '& .MuiInputBase-input': {
               resize: 'both', // マウスで大きさを変えられるようにする
@@ -105,7 +105,6 @@ export const Popup = () => {
 
       <Box sx={{ display: 'flex', justifyContent: 'flex-start', mt: 1, ml: 6 }}>
         <Button
-          id="saveButton"
           variant="contained"
           onClick={handleSave}
           disabled={isSaving}
