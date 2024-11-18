@@ -58,6 +58,7 @@ export const Popup = () => {
     setIsSaving(true)
 
     const accountTextList = registerAccountText.current.value.split('\n\n')
+
     chrome.storage.sync.clear(() => {
       chrome.storage.sync.set({ accountTextList }, () => {
         setTimeout(() => {
@@ -97,7 +98,7 @@ export const Popup = () => {
           placeholder="[account-name-1]&#10;account-id-1&#10;&#10;[account-name-2]&#10;account-id-2&#10;&#10;..."
           sx={{
             '& .MuiInputBase-input': {
-              resize: 'both', // マウスで大きさを変えられるようにする
+              resize: 'both',
             },
           }}
         />
@@ -126,26 +127,6 @@ export const Popup = () => {
           }}
         />
       </Box>
-      {/* <TableContainer component={Paper}>
-          <Table>
-            <TableHead>
-              <TableRow>
-                {columns.map((column) => (
-                  <TableCell key={column.field}>{column.headerName}</TableCell>
-                ))}
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {rows.map((row) => (
-                <TableRow key={row.id}>
-                  {columns.map((column) => (
-                    <TableCell key={column.field}>{String(row[column.field])}</TableCell>
-                  ))}
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer> */}
     </>
   )
 }
