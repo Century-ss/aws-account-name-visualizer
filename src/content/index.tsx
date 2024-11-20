@@ -26,8 +26,9 @@ const displayAccountName = async () => {
   }
 
   menuButtonElement.click()
-
   const spanElements = document.querySelectorAll('span')
+
+  menuButtonElement.click()
 
   const accountLabelElement = Array.from(spanElements).find(
     (span) =>
