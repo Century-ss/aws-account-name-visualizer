@@ -98,6 +98,7 @@ export const Popup = () => {
           rows={8}
           variant="outlined"
           inputRef={registerAccountText}
+          // TODO: Validate the input value
           defaultValue={convertRowsToAccountTextField(rows)}
           placeholder="[account-name-1]&#10;account-id-1&#10;&#10;[account-name-2]&#10;account-id-2&#10;&#10;..."
           sx={{
