@@ -17,7 +17,7 @@ const CustomNoRowsOverlay = () => (
   <Box sx={{ p: 2, textAlign: 'center' }}>No account registered</Box>
 )
 
-export const convertAccountTextListToRows = (accountTextList: string[]) => {
+export const convertAccountTextListToRows = (accountTextList: string[] | undefined) => {
   if (!accountTextList || accountTextList.length === 0) {
     throw new Error('No account registered')
   }

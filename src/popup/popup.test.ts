@@ -2,10 +2,14 @@ import { describe, it, expect } from 'vitest'
 import { convertRowsToAccountTextField, convertAccountTextListToRows } from './Popup'
 
 describe('parse account text list', () => {
-  it('should return an empty array when input is empty', () => {
+  it('should raise error when input is empty list', () => {
     const accountTextList: string[] = []
-    const result = convertAccountTextListToRows(accountTextList)
-    expect(result).toEqual([])
+    expect(() => convertAccountTextListToRows(accountTextList)).toThrow()
+  })
+
+  it('should raise error when input is undefined', () => {
+    const accountTextList = undefined
+    expect(() => convertAccountTextListToRows(accountTextList)).toThrow()
   })
 
   it('should return an array of rows when input is not empty', () => {
