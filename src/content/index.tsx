@@ -34,11 +34,13 @@ const displayAccountName = async () => {
       span.textContent?.includes('アカウント ID: ') || span.textContent?.includes('Account ID: '),
   )
 
-  if (!accountLabelElement) {
-    throw new Error('Not found account ID label element.')
-  }
+  const accountIdElement: Element | null = accountLabelElement
+    ? accountLabelElement.nextElementSibling
+    : Array.from(spanElements).find((span) => {
+        const accountIdRegex = /^\d{4}-\d{4}-\d{4}$/
+        return accountIdRegex.test(span.textContent || '')
+      }) || null
 
-  const accountIdElement = accountLabelElement.nextElementSibling
   if (!accountIdElement?.textContent) {
     throw new Error('Not found account ID element.')
   }

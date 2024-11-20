@@ -18,6 +18,10 @@ const CustomNoRowsOverlay = () => (
 )
 
 export const convertAccountTextListToRows = (accountTextList: string[]) => {
+  if (!accountTextList || accountTextList.length === 0) {
+    throw new Error('No account registered')
+  }
+
   const accountPairs = accountTextList.map((accountText, index) => {
     // accountTextList: ['[accountName]\naccountId', ...]
     const [accountName, accountId] = accountText.split('\n')
