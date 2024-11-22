@@ -1,4 +1,4 @@
-import { convertAccountTextListToRows } from '../popup/Popup'
+import { convertAccountTextListToRows } from '../popup/data-process'
 
 const main = async () => {
   if (!location.href.includes('console.aws.amazon.com')) {

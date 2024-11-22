@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { convertRowsToAccountTextField, convertAccountTextListToRows } from './Popup'
+import { convertRowsToAccountTextField, convertAccountTextListToRows } from './data-process'
 
 describe('parse account text list', () => {
   it('should raise error when input is empty list', () => {
