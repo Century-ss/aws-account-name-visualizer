@@ -2,7 +2,9 @@ import { Box, Button, CircularProgress, TextField, Typography } from '@mui/mater
 import { DataGrid, type GridColDef } from '@mui/x-data-grid'
 import { useEffect, useRef, useState } from 'react'
 
-type Row = {
+import { convertAccountTextListToRows, convertRowsToAccountTextField } from './data-process'
+
+export type Row = {
   id: number
   accountId: string
   accountName: string
@@ -13,31 +15,7 @@ const columns: GridColDef[] = [
   { field: 'accountId', headerName: 'Account ID', flex: 1 },
 ]
 
-const CustomNoRowsOverlay = () => (
-  <Box sx={{ p: 2, textAlign: 'center' }}>No account registered</Box>
-)
-
-export const convertAccountTextListToRows = (accountTextList: string[] | undefined) => {
-  if (!accountTextList || accountTextList.length === 0) {
-    throw new Error('No account registered')
-  }
-
-  const accountPairs = accountTextList.map((accountText, index) => {
-    // accountTextList: ['[accountName]\naccountId', ...]
-    const [accountName, accountId] = accountText.split('\n')
-    return {
-      id: index,
-      accountId: accountId.trim(),
-      accountName: accountName.replace(/[\[\]]/g, '').trim(),
-    }
-  })
-  return accountPairs
-}
-
-export const convertRowsToAccountTextField = (rows: Row[]) => {
-  const accountTextList = rows.map((row) => `[${row.accountName}]\n${row.accountId}`)
-  return accountTextList.join('\n\n')
-}
+const NoRowsOverlay = () => <Box sx={{ p: 2, textAlign: 'center' }}>No account registered</Box>
 
 export const Popup = () => {
   useEffect(() => {
@@ -128,7 +106,7 @@ export const Popup = () => {
           columns={columns}
           hideFooter
           slots={{
-            noRowsOverlay: CustomNoRowsOverlay,
+            noRowsOverlay: NoRowsOverlay,
           }}
         />
       </Box>
