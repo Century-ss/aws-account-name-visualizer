@@ -30,7 +30,7 @@ Then, when you access the AWS Management Console, this extension allows you to q
     <img src="https://github.com/Century-ss/aws-account-name-visualizer/actions/workflows/test-and-lint.yml/badge.svg" alt="CI">
   </a>
     &nbsp;
-  <a>
+  <a href="https://github.com/Century-ss/aws-account-name-visualizer/pulls">
     <img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg" alt="PRs welcome">
   </a>
     &nbsp;
