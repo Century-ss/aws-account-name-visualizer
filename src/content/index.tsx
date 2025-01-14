@@ -48,17 +48,6 @@ const displayAccountName = async () => {
 
   const accountId = accountIdElement.textContent.replace(/-/g, '')
 
-  const roleAndUserNameElement = Array.from(menuButtonElement.getElementsByTagName('span')).find(
-    (span) =>
-      span.textContent?.includes('AWSAdministratorAccess/') ||
-      span.textContent?.includes('AWSPowerUserAccess/') ||
-      span.textContent?.includes('ReadOnlyAccess/'),
-  )
-
-  if (!roleAndUserNameElement) {
-    throw new Error('Not found role and user name element.')
-  }
-
   chrome.storage.sync.get('accountTextList', (result) => {
     const accountPairRows = convertAccountTextListToRows(result.accountTextList)
     const accountName = accountPairRows.find((row) => row.accountId === accountId)?.accountName
@@ -72,14 +61,22 @@ const displayAccountName = async () => {
     menuButtonElement.parentNode?.insertBefore(DisplayAccountElement, menuButtonElement)
 
     // For taking sample images for description
+    // const roleAndUserNameElement = Array.from(menuButtonElement.getElementsByTagName('span')).find(
+    //   (span) =>
+    //     span.textContent?.includes('AWSAdministratorAccess/') ||
+    //     span.textContent?.includes('AWSPowerUserAccess/') ||
+    //     span.textContent?.includes('ReadOnlyAccess/'),
+    // )
+
+    // if (!roleAndUserNameElement) {
+    //   throw new Error('Not found role and user name element.')
+    // }
     // DisplayAccountElement.textContent = 'Account Name'
     // DisplayAccountElement.style.cssText =
     //   'color: white; font-weight: bold; display: flex; align-items: center; justify-content: center;'
     // menuButtonElement.parentNode?.insertBefore(DisplayAccountElement, menuButtonElement)
     // roleAndUserNameElement.textContent = 'AWSAdministratorAccess/user-name'
   })
-
-  menuButtonElement.click()
 }
 
 main()
