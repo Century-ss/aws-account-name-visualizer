@@ -1,7 +1,7 @@
 {
   "name": "aws-account-name-visualizer",
   "private": true,
-  "version": "0.1.2",
+  "version": "0.1.3",
   "type": "module",
   "scripts": {
     "dev": "run-s clean && vite",
