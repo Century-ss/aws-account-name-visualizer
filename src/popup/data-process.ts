@@ -5,6 +5,11 @@ export const convertAccountTextListToRows = (accountTextList: string[] | undefin
     throw new Error('No account registered')
   }
 
+  // After previously registerd account, if all are deleted, becomes accountTextList:['']
+  if (accountTextList.length === 1 && accountTextList[0] === '') {
+    throw new Error('Previously account registered, but now unregistered')
+  }
+
   const accountPairs = accountTextList.map((accountText, index) => {
     // accountTextList: ['[accountName]\naccountId', ...]
     const [accountName, accountId] = accountText.split('\n')
